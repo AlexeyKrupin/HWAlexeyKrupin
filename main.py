@@ -37,6 +37,12 @@ class Student:
                f"Курсы в процессе изучения: {', '.join(self.courses_in_progress)}"" \n"
                f"Завершенные курсы: {', '.join(self.finished_courses)}")
         return res
+    def __gt__(self, other):
+        if not isinstance(other, Student):
+            print('Not a Student!')
+            return
+        return self.grade_average > other.grade_average
+
 
 
 class Mentor:
@@ -88,8 +94,14 @@ class Lecturer(Mentor):
         res = (f"Имя: {self.name}"" \n"
                 f"Фамилия: {self.surname}"" \n"
                 f"Средняя оценка за лекции: {self.grade_average}")
-
         return res
+    def __gt__(self, other):
+        if not isinstance(other, Lecturer):
+            print('Not a Lecturer!')
+            return
+        return self.grade_average > other.grade_average
+
+
 
 lecturer_one = Lecturer('Some', 'Buddy')
 lecturer_one.courses_attached += ['Python']
@@ -119,9 +131,9 @@ reviewer_one.rate_hw(student_one, 'Python', 9.9)
 reviewer_one.rate_hw(student_one, 'Python', 9.9)
 reviewer_one.rate_hw(student_one, 'Python', 9.9)
 
-student_two.rate_lecrurer(lecturer_two, 'Python', 9.9)
-student_two.rate_lecrurer(lecturer_two, 'Python', 9.9)
-student_two.rate_lecrurer(lecturer_two, 'Python', 9.9)
+student_two.rate_lecrurer(lecturer_two, 'Python', 9)
+student_two.rate_lecrurer(lecturer_two, 'Python', 9)
+student_two.rate_lecrurer(lecturer_two, 'Python', 9)
 
 reviewer_two.rate_hw(student_two, 'Python', 10)
 reviewer_two.rate_hw(student_two, 'Python', 10)
@@ -148,7 +160,11 @@ print('')
 print(lecturer_two)
 print('')
 print(student_two)
-
-
-
-
+print('')
+print(student_one.__gt__(student_two))
+print('')
+print(student_two.__gt__(student_one))
+print('')
+print(lecturer_one.__gt__(lecturer_two))
+print('')
+print(lecturer_two.__gt__(lecturer_one))
